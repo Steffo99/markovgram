@@ -4,6 +4,11 @@ import markovify
 import json
 import os
 import re
+import string
+
+
+def bprint(s: str, err: bool = False) -> None:
+    click.echo("".join(filter(lambda c: c in string.printable, s)), err=err)
 
 
 def underscorize(string: str) -> str:
@@ -76,8 +81,8 @@ def create_chats_newlinetext(chats: List[Dict[str, Any]], state_size) -> Optiona
 def create_file(path, chats, state_size):
     text: markovify.NewlineText = create_chats_newlinetext(chats, state_size)
     if text is None:
-        click.echo(f"{path}: Text generation failed", err=True)
-    click.echo(f"{path}: {text.make_sentence()}")
+        bprint(f"{path}: Text generation failed", err=True)
+    bprint(f"{path}: {text.make_sentence()}")
     with open(path, "w") as output_file:
         output_file.write(text.to_json())
 
