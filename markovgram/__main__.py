@@ -55,6 +55,9 @@ def create_chats_newlinetext(chats: List[Dict[str, Any]], state_size) -> Optiona
                 continue
             # Find the message inside the update
             message: str = merge_message(update["text"])
+            # Skip commands
+            if message.startswith("/"):
+                continue
             # Split the message in words
             words: List[str] = message.split()
             # Append the words to the messages
