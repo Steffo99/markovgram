@@ -1,5 +1,6 @@
 # Telegram ignore
 DataExport*/
+MarkovgramOutput/
 
 # Pycharm ignore
 .idea/
