@@ -4,15 +4,25 @@ import markovify
 
 
 @click.command()
-@click.option("-o", "--output-file", type=click.File("w", encoding="utf8"))
 @click.argument("files", type=click.Path(exists=True, dir_okay=False), nargs=-1)
-def run(output_file, files):
+@click.option("-o", "--output-file", type=click.File("w", encoding="utf8"))
+def run(files: Tuple[str], output_file: str):
     texts = []
-    for file in files:
-        with open(file) as f:
-            texts.append(markovify.NewlineText.from_json(f.read()))
-    result = markovify.combine(texts)
-    output_file.write(result.to_json())
+    with click.progressbar(files,
+                           label="Opening files...",
+                           length=len(files),
+                           show_percent=True,
+                           fill_char="█",
+                           empty_char="░") as files_bar:
+        for filename in files_bar:
+            with open(filename) as file:
+                text = markovify.NewlineText.from_json(file.read())
+            texts.append(text)
+    click.echo("Merging...")
+    merged = markovify.combine(texts)
+    click.echo("")
+    with open(output_file, "w") as output_file:
+        output_file.write(merged.to_json())
 
 
 if __name__ == "__main__":
