@@ -1,10 +1,6 @@
 from typing import *
 import click
 import markovify
-import json
-import os
-import re
-import string
 
 
 @click.command()
