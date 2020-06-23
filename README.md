@@ -7,7 +7,7 @@ Parse GDPR-exported Telegram data and create [`markovify`](https://github.com/js
 ### Create models
 
 ```
-python -m markovgram
+markovgram
 ```
 
 ### Generate sample sentences from a model
