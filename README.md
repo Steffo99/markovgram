@@ -13,11 +13,11 @@ markovgram
 ### Generate sample sentences from a model
 
 ```
-python -m markovgram.preview modelname
+markovgram-preview modelname
 ```
 
 ### Merge multiple models into a single one
 
 ```
-python -m markovgram.merge model1 model2 ...
+markovgram-merge model1 model2 ...
 ```
